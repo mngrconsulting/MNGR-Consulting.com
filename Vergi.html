@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <link rel="website icon"type="png" href="MNGR_CONSULTING45.jpg">
+    <link rel="website icon"type="png" href="MNGR_CONSULTING45.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vergi Hesabı</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 2.5rem;
+            color: #FFD700;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            width: 350px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .calculator:hover {
+            transform: scale(1.05);
+        }
+
+        label, select, input, button {
+            margin: 12px 0;
+            display: block;
+            width: 100%;
+        }
+
+        input, select {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #333;
+            color: #fff;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            background: #444;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        button {
+            padding: 15px;
+            background: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background: #FFA500;
+            transform: scale(1.05);
+        }
+
+        .result-table {
+            width: 80%;
+            margin-top: 40px;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.6);
+            color: #FFD700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .result-table tbody {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .result-table tbody tr {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .result-table tbody tr:hover {
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .calculator {
+                width: 90%;
+            }
+
+            .result-table {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Vergi Hesabı</h2>
+
+    <div class="calculator">
+        <label for="amount">Verginin hesablanacağı pul miqdarını daxil edin:</label>
+        <input type="number" id="amount" placeholder="Miqdar" required>
+
+        <label for="taxType">Dövlət vergi növünü seçin:</label>
+        <select id="taxType">
+            <option value="əlavə dəyər vergisi">Əlavə Dəyər Vergisi</option>
+            <option value="mənfəət vergisi">Mənfəət Vergisi</option>
+            <option value="gəlir vergisi">Gəlir Vergisi</option>
+            <option value="sosial sığorta haqqı">Sosial Sığorta Haqqı</option>
+            <option value="sadələşdirilmiş vergi">Sadələşdirilmiş Vergi</option>
+        </select>
+
+        <div id="socialType" style="display:none;">
+            <label for="personType">Vergini kim ödəyəcək:</label>
+            <select id="personType">
+                <option value="işçi">İşçi</option>
+                <option value="işəgötürən">İşəgötürən</option>
+            </select>
+        </div>
+
+        <button onclick="calculateTax()">Vergini Hesabla</button>
+    </div>
+
+    <h2>Nəticələr</h2>
+    <table class="result-table" id="resultsTable">
+        <thead>
+            <tr>
+                <th>Vergi Növü</th>
+                <th>Miqdar (AZN)</th>
+                <th>Hesablanan Vergi (AZN)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Results will appear here -->
+        </tbody>
+    </table>
+
+    <script>
+        function calculateTax() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const taxType = document.getElementById('taxType').value;
+
+            if (isNaN(amount) || amount <= 0) {
+                alert("Zəhmət olmasa, düzgün pul miqdarı daxil edin.");
+                return;
+            }
+
+            let result = 0;
+            let resultText = '';
+
+            if (taxType === "əlavə dəyər vergisi") {
+                result = (amount / 100) * 18;
+                resultText = "Əlavə Dəyər Vergisi";
+            } else if (taxType === "mənfəət vergisi") {
+                result = (amount / 100) * 20;
+                resultText = "Mənfəət Vergisi";
+            } else if (taxType === "gəlir vergisi") {
+                resultText = "Gəlir Vergisi";
+                if (amount <= 2500) {
+                    result = (amount / 100) * 14;
+                } else {
+                    result = (amount / 100) * 25;
+                }
+            } else if (taxType === "sosial sığorta haqqı") {
+                const personType = document.getElementById('personType').value;
+                resultText = `Sosial Sığorta Haqqı (${personType === "işçi" ? "İşçi" : "İşəgötürən"})`;
+                result = personType === "işçi" ? (amount / 100) * 3 : (amount / 100) * 22;
+            } else if (taxType === "sadələşdirilmiş vergi") {
+                result = (amount / 100) * 2 + " - " + (amount / 100) * 4;
+                resultText = "Sadələşdirilmiş Vergi";
+            }
+
+            addResultToTable(resultText, amount.toFixed(2), result.toFixed(2));
+        }
+
+        function addResultToTable(taxType, amount, result) {
+            const table = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            const taxCell = newRow.insertCell(0);
+            const amountCell = newRow.insertCell(1);
+            const resultCell = newRow.insertCell(2);
+
+            taxCell.textContent = taxType;
+            amountCell.textContent = `${amount} AZN`;
+            resultCell.textContent = `${result} AZN`;
+        }
+
+        document.getElementById('taxType').addEventListener('change', function() {
+            const socialType = this.value === "sosial sığorta haqqı";
+            document.getElementById('socialType').style.display = socialType ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <link rel="website icon"type="png" href="MNGR_CONSULTING45.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İT Xidmətləri</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #2196f3, #00bcd4);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(21, 101, 192, 0.8);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .section {
+            padding: 50px 20px;
+            margin: 40px auto;
+            max-width: 1200px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #1565c0;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        ul li {
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        ul li:hover {
+            transform: scale(1.1);
+            color: #1565c0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2196f3;
+            transition: color 0.3s ease;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        a:hover {
+            color: #d32f2f;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            background: rgba(21, 101, 192, 0.8);
+            color: white;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 1rem;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hover Effect for Sections */
+        .section:nth-child(even) {
+            background: #e3f2fd;
+        }
+
+        .section:hover {
+            background: #bbdefb;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .section {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .section p {
+                font-size: 1rem;
+            }
+
+            ul {
+                flex-direction: column;
+            }
+
+            ul li {
+                font-size: 1rem;
+            }
+
+            footer {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>İT Xidmətləri</h1>
+    <p>Bizim peşəkar komandamızla gələcəyin texnologiyalarını əldə edin.</p>
+</header>
+
+<section class="section services">
+    <h2>İT Xidmətləri</h2>
+    <p>Bizim xidmətlərimizə daxildir: veb saytların yaradılması, proqram təminatının inkişafı, bulud xidmətləri, İT dəstək və konsaltinq.</p>
+</section>
+
+<section class="section resources">
+    <h2>Öyrənmə Resursları</h2>
+    <p>İT sahəsində biliklərinizi inkişaf etdirin. Bizim resurslar sayəsində siz ən son trendləri öyrənəcəksiniz.</p>
+    <ul>
+        <li><a href="#">Proqramlaşdırma Kursları</a></li>
+        <li><a href="#">Veb İnkişafı haqqında məqalələr</a></li>
+        <li><a href="#">Ən yeni texnologiyalar və trendlər</a></li>
+    </ul>
+</section>
+
+<section class="section news">
+    <h2>Ən Son Yeniliklər</h2>
+    <p>Bizim şirkət, sənayenin son yenilikləri və trendləri ilə daima gündəmdədir. Burada ən son xəbərləri oxuya bilərsiniz.</p>
+</section>
+
+<footer>
+    <p>&copy; 2024 RN Consulting. Bütün hüquqlar qorunur.</p>
+</footer>
+
+</body>
+</html>

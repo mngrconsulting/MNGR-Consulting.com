@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <link rel="website icon"type="png" href="MNGR_CONSULTING45.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Məhsul Təhlili</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4e6f92, #4e6f92);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            transition: width 0.5s ease, height 0.5s ease;
+            height: 200px;
+        }
+        .container.expanded {
+            width: 500px;
+            height: 550px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        .form-group input:focus {
+            border-color: #4e6f92;
+            outline: none;
+        }
+        .form-group input:hover {
+            transform: scale(1.05);
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #4e6f92;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background:#4e6f92;
+        }
+        .results-table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .results-table th {
+            background: #4e6f92;
+            color: white;
+        }
+        .results-table tbody tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .results-table tbody tr:nth-child(odd) {
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <h1>Mühasibatlıq</h1>
+        <div id="inputSection">
+            <div class="form-group">
+                <label for="availability">Bazada Məhsul Mövcuddurmu? (Hə və ya Yox)</label>
+                <input type="text" id="availability" placeholder="Hə vəya Yox">
+            </div>
+            <button class="btn" onclick="checkAvailability()">Təsdiqlə</button>
+        </div>
+        <div id="calculationSection" style="display: none;">
+            <div class="form-group">
+                <label for="productName">Məhsulun adı</label>
+                <input type="text" id="productName" placeholder="Məhsulun adı">
+            </div>
+            <div class="form-group">
+                <label for="purchasePrice">Alış Qiyməti</label>
+                <input type="number" id="purchasePrice" placeholder="Alış Qiyməti">
+            </div>
+            <div class="form-group">
+                <label for="salePrice">Satış Qiyməti</label>
+                <input type="number" id="salePrice" placeholder="Satış Qiyməti">
+            </div>
+            <div class="form-group">
+                <label for="quantity">Miqdar</label>
+                <input type="number" id="quantity" placeholder="Miqdar">
+            </div>
+            <button class="btn" onclick="calculate()">Hesabla</button>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>0</th>
+                        <th>Məhsulun Adı</th>
+                        <th>Ümumi Alış Qiyməti</th>
+                        <th>Ümumi Satış Qiyməti</th>
+                        <th>Əldə Olunan Gəlir</th>
+                    </tr>
+                </thead>
+                <tbody id="history"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let calculationCount = 0;
+
+        function checkAvailability() {
+            const availability = document.getElementById("availability").value.trim().toLowerCase();
+            if (availability === "yox") {
+                document.getElementById("inputSection").style.display = "none";
+                document.getElementById("calculationSection").style.display = "block";
+                document.getElementById("container").classList.add("expanded");
+            } else {
+                alert("Məhsul Mövcuddur!");
+            }
+        }
+
+        function calculate() {
+            const productName = document.getElementById("productName").value.trim();
+            const purchasePrice = parseFloat(document.getElementById("purchasePrice").value);
+            const salePrice = parseFloat(document.getElementById("salePrice").value);
+            const quantity = parseInt(document.getElementById("quantity").value, 10);
+
+            if (!productName || isNaN(purchasePrice) || isNaN(salePrice) || isNaN(quantity)) {
+                alert("Zəhmət olmasa bütün sahələri düzgün doldurun!");
+                return;
+            }
+
+            const totalPurchasePrice = Math.round(purchasePrice * quantity);
+            const totalSalePrice = Math.round(salePrice * quantity);
+            const profit = Math.round(totalSalePrice - totalPurchasePrice);
+
+            calculationCount++;
+
+            const historyTable = document.getElementById("history");
+
+            if (historyTable.rows.length >= 15000) {
+                alert("Maksimum limitə çatıldı (15000). Daha çox məlumat saxlanıla bilməz.");
+                return;
+            }
+
+            const row = historyTable.insertRow();
+            row.innerHTML = `
+                <td>${calculationCount}</td>
+                <td>${productName}</td>
+                <td>${totalPurchasePrice} AZN</td>
+                <td>${totalSalePrice} AZN</td>
+                <td>${profit} AZN</td>
+            `;
+
+           
+            const container = document.getElementById("container");
+            container.style.height = `${200 + calculationCount * 60}px`; 
+            if (container.classList.contains("expanded")) {
+                container.style.height = `${500 + calculationCount * 60}px`;
+            }
+        }
+    </script>
+</body>
+</html>

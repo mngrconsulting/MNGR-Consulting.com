@@ -1,0 +1,153 @@
+/* Базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+body {
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+}
+/* Шапка */
+.headerTop {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: white;
+    padding: 6rem 1rem;
+    text-align: center;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    margin-bottom: 3rem;
+}
+.headerTop h1 {
+    font-size: 4rem;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    background: linear-gradient(45deg, #fff, #e0f2fe);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* Секция с карточками */
+.containers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    padding: 3rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.card-container {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+.card-container:hover {
+    transform: translateY(-10px);
+}
+.card-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.card-container:hover img {
+    transform: scale(1.05);
+}
+/* Секция услуг */
+.services {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+.services ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.services button {
+    width: 100%;
+    padding: 1.5rem;
+    border: none;
+    border-radius: 15px;
+    background: white;
+    text-align: left;
+    font-size: 1.1rem;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.services button:hover {
+    background: #3b82f6;
+    color: white;
+    transform: translateX(10px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+.services button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: #3b82f6;
+    transition: width 0.3s ease;
+}
+.services button:hover::before {
+    width: 100%;
+    opacity: 0.2;
+}
+.services li {
+    padding: 1rem;
+    position: relative;
+}
+/* Футер */
+footer {
+    background: #1d4ed8;
+    color: white;
+    text-align: center;
+    padding: 4rem 2rem;
+    margin-top: 6rem;
+    clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
+}
+.footer-content p {
+    margin: 0.8rem 0;
+    opacity: 0.9;
+}
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.card-container, .services button {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+/* Адаптивность */
+@media (max-width: 768px) {
+    .headerTop h1 {
+        font-size: 2.5rem;
+    }
+    .containers {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+    }
+    .services ul {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 480px) {
+    .headerTop h1 {
+        font-size: 2rem;
+    }
+    .services button {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
